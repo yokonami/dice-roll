@@ -1,0 +1,45 @@
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.png">
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="cof_roller.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <title> dice roll </title>
+</head>
+<div id="header"></div>
+
+<body>
+
+    <div class="container" style="padding:20px 0">
+    <div class="row" id="container">
+        <form id="form" class="form-inline" action="" method="post" onsubmit="return false">
+            <div class="form-group">
+                
+                <label class="sr-only control-label" for="context"><i class="glyphicon glyphicon-hand-right"></i>2d6+3+1d6</label>
+                <input type="text" id="context" class="form-control" placeholder="2d6+3+1d6"><br>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" id="submitter"><i class="glyphicon glyphicon-arrow-down"></i>  Roll!</button>
+            </div>
+        </form>
+        <!--
+        <div id="result"></div>
+        -->
+        <table class="table table-striped" id="result">
+            <thead>
+                <tr><th>result</th><th>dice</th></tr>
+            </thead>
+            <tbody id="result-body">
+            </tbody>
+        </table>
+
+    </div>
+    </div>
+
+</body>
+<div id="footer"></div>
