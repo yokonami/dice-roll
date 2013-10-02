@@ -35,26 +35,39 @@ $("#container").ready(function(){
         var text = $("#context").val();
         context.setTextAndParse(text);
         var node = new ProgramNode();
-        var result = node.parse(context);
+        var resultSet = node.parse(context)
+        var result = resultSet.sum
+        var max = resultSet.max;
+        var min = resultSet.min;
+        console.log(resultSet);
         //console.log(result);
-        $("#result-body").prepend("<tr><td>" + result + "</td><td>" + text + "</td></tr>");
+        if(result == max){
+            $("#result-body").prepend("<tr><td>" + result + "&nbsp;&nbsp;<span class=\"label label-success\">max</span></td><td>" + text + "</td></tr>");
+        }else if(result == min){
+            $("#result-body").prepend("<tr><td>" + result + "&nbsp;&nbsp;<span class=\"label label-danger\">min</span></td><td>" + text + "</td></tr>");
+        }else{
+            $("#result-body").prepend("<tr><td>" + result + "</td><td>" + text + "</td></tr>");
+        }
     });
-        //TODO:最大値の時、ラベルを付ける！
 });
 
 var ProgramNode = function(){
 };
 ProgramNode.prototype.parse = function(context){
     var sum = 0;
+    var max = 0;
+    var min = 0;
     while(true){
         var token = context.currentToken;
         var node = new NumericNode();
-        sum = sum + node.parse(token);
+        sum = sum + node.parse(token).sum;
+        max = max + node.parse(token).max;
+        min = min + node.parse(token).min;
         if(context.nextToken() === null){
             break;
         }
     }
-    return sum;
+    return {"sum":sum, "max":max, "min":min};
 }
 var NumericNode = function(){
 };
@@ -65,12 +78,19 @@ NumericNode.prototype.parse = function(token){
         var numOfDice = parseInt(token.substring(0,indexOfD));
         var sizeOfDice = parseInt(token.substring(indexOfD+1, token.length));
         var sum = 0;
+        var max = 0;
+        var min = 0;
         for(var i=0; i < numOfDice; i++){
             sum = sum + Math.floor( Math.random() * sizeOfDice + 1);
+            max = max + sizeOfDice;
+            min = 1
         }
-        return sum;
+        return {"sum":sum, "max":max, "min":min};
     }else{
-        return parseInt(token);
+        var sum = parseInt(token);
+        var max = parseInt(token);
+        var min = parseInt(token);
+        return {"sum":sum, "max":max, "min":min};
     }
 };
 
